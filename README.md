@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# l0c4l1z3
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+If you ever had a case where putting in place translations for an app, you are at the right place.
 
-## Available Scripts
+This repository contains 2 different apps: a CDN for your language, delivering json files by namespace and language; and an application to edit those languages and namespaces.
 
-In the project directory, you can run:
+## Before all
 
-### `yarn start`
+Before using either of the functionnalities, be sure to install dependencies and build the project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+$ npm install
+$ npm run build
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+And install the database creating a `.env` file based on `.env.example` with the values for your database. You can spawn the database by executing
 
-### `yarn test`
+```bash
+$ npm run truncate
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Editor
 
-### `yarn build`
+The editor can be started using
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+$ npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+It will deploy on http://localhost:8080 an app to enable you to manage **Languages**, **Namespaces** and their **Translations** which is a (key, value) pair.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## CDN
 
-### `yarn eject`
+The CDN can be started using
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+$ npm run cdn
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+It will only deploy CDN mode (no edit) on http://localhost:8080/api/{namespace}/{language}.json and render all your data there (plus cache).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Docker
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+A docker container is also available on `https://hub.docker.com/repository/docker/charlesgael/l0c4l1z3` to start either `cdn` or `langapp`.
 
-## Learn More
+You have to specify those variables on the docker env:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```properties
+DB_HOST=localhost
+DB_PORT=3306
+DB_SCHEMA=l0c4l1z3
+DB_USER=root
+DB_PASS=
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+And you should be set.
+
+If you specify a `CDN=true` it will start on CDN mode.

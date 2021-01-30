@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import simpleRestProvider from 'ra-data-simple-rest';
+import React, { FC } from 'react';
+import { Admin } from 'react-admin';
+import Entries from './resources/Entries';
+import MissingKeys from './resources/MissingKeys';
+import Language from './resources/Language';
+import Namespace from './resources/Namespace';
+import theme from './theme';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const dataProvider = simpleRestProvider('');
+const App: FC = () => (
+    <Admin dataProvider={dataProvider} theme={theme}>
+        {Language}
+        {Namespace}
+        {Entries}
+        {MissingKeys}
+    </Admin>
+);
 
 export default App;
